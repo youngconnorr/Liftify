@@ -3,12 +3,13 @@ package model;
 import java.util.ArrayList;
 
 public class Workouts {
-    ArrayList<String> push = new ArrayList<>();
-    ArrayList<String> pull = new ArrayList<>();
-    ArrayList<String> legs = new ArrayList<>();
+    protected ArrayList<String> push = new ArrayList<>();
+    protected ArrayList<String> pull = new ArrayList<>();
+    protected ArrayList<String> legs = new ArrayList<>();
 
     public Workouts() {
         push.add("bench press");
+        push.add("bench");
         push.add("dips");
         push.add("lateral raises");
         push.add("incline bench press");
@@ -25,6 +26,8 @@ public class Workouts {
 
 
         legs.add("squat");
+        legs.add("rdl");
+        legs.add("romanian deadlift");
         legs.add("leg press");
         legs.add("calf raises");
         legs.add("bulgarian split squat");
