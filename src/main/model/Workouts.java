@@ -34,4 +34,27 @@ public class Workouts {
         legs.add("front squat");
         legs.add("leg curl");
     }
+
+    //EFFECT: check if the workout is in the common workout list or not return boolean
+    public boolean whichWorkoutList(String category, String workout) {
+        if (category.equals("push")) {
+            return push.contains(workout);
+        } else if (category.equals("pull")) {
+            return pull.contains(workout);
+        } else if (category.equals("legs")) {
+            return legs.contains(workout);
+        } else {
+            return false;
+        }
+    }
+
+    public void addUncommonWorkout(String category, String workout) {
+        if (category.equals("push")) {
+            push.add(workout);
+        } else if (category.equals("pull")) {
+            pull.add(workout);
+        } else if (category.equals("legs")) {
+            legs.add(workout);
+        }
+    }
 }

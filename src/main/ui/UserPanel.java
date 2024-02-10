@@ -21,11 +21,9 @@ public class UserPanel {
         String userMenuChoice = userMenu();
         boolean userDecision = decideChoice(userMenuChoice);
         if (userDecision) {
-            String returnFromPanel = goToRecordPanel.runRecordPanel();
-            if (returnFromPanel.equals("back")) {
+            String yesBack = goToRecordPanel.runRecordPanel();
+            if (yesBack.equals("back")) {
                 userInterfaceUserPanel();
-            } else {
-                goToRecordPanel.runRecordPanel();
             }
         } else {
             System.out.println("going to schedule when implemented!");
