@@ -1,18 +1,34 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Records extends Workouts {
     protected LinkedHashMap<String, String> pushRecords;
     protected LinkedHashMap<String, String> pullRecords;
     protected LinkedHashMap<String, String> legsRecords;
+    protected Map<String, LinkedHashMap<String, String>> nameOfRecords;
+    protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords;
+
 
     public Records() {
-        pushRecords = new LinkedHashMap<>(); // is a list of all push workout records (ie. Push: 135)
+        pushRecords = new LinkedHashMap<>(); // is a list of all push workout records
         pullRecords = new LinkedHashMap<>(); // is a list of all pull workout records
         legsRecords = new LinkedHashMap<>(); // is a list of all leg workout records
-    }
+        nameOfRecords = new LinkedHashMap<>();
 
+        nameOfRecords.put("push", pushRecords);
+
+        nameOfRecords.put("pull", pullRecords);
+
+        nameOfRecords.put("legs", legsRecords);
+
+
+        allRecords = new ArrayList<>();
+        allRecords.add(nameOfRecords);
+
+    }
 
     //MODIFIES: this
     //EFFECT: adds workout to category according to arguments given
@@ -45,4 +61,17 @@ public class Records extends Workouts {
                 break;
         }
     }
+
+    public boolean whichRecordList(String category, String workout) {
+        if (category.equals("push")) {
+            return pushRecords.containsKey(workout);
+        } else if (category.equals("pull")) {
+            return pullRecords.containsKey(workout);
+        } else if (category.equals("legs")) {
+            return legsRecords.containsKey(workout);
+        } else {
+            return false;
+        }
+    }
 }
+
