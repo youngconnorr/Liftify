@@ -6,6 +6,7 @@ public class Workouts {
     protected ArrayList<String> push = new ArrayList<>();
     protected ArrayList<String> pull = new ArrayList<>();
     protected ArrayList<String> legs = new ArrayList<>();
+    protected ArrayList<String> empty = new ArrayList<>();
 
     public Workouts() {
         push.add("bench press");
@@ -56,6 +57,8 @@ public class Workouts {
             pull.add(workout);
         } else if (category.equals("legs")) {
             legs.add(workout);
+        } else {
+            empty.add(workout);
         }
     }
 

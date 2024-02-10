@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkoutsTest {
@@ -10,6 +11,22 @@ public class WorkoutsTest {
     @BeforeEach
     void runBefore() {
         testWorkouts = new Workouts();
+    }
+
+    @Test
+    void testConstructor() {
+        assertEquals(6, testWorkouts.getPushLength());
+        assertEquals(8, testWorkouts.getPullLength());
+        assertEquals(8, testWorkouts.getLegsLength());
+        assertEquals(0, testWorkouts.push.indexOf("bench press"));
+        assertEquals(0, testWorkouts.pull.indexOf("deadlift"));
+        assertEquals(0, testWorkouts.legs.indexOf("squat"));
+        assertEquals(5, testWorkouts.push.indexOf("overhead press"));
+        assertEquals(7, testWorkouts.pull.indexOf("chin ups"));
+        assertEquals(7, testWorkouts.legs.indexOf("leg curl"));
+        assertEquals(1, testWorkouts.push.indexOf("bench"));
+        assertEquals(1, testWorkouts.pull.indexOf("lat pulldowns"));
+        assertEquals(1, testWorkouts.legs.indexOf("rdl"));
     }
 
     @Test
@@ -86,5 +103,11 @@ public class WorkoutsTest {
         testWorkouts.addUncommonWorkout("legs", "dumbbell one leg");
         testWorkouts.addUncommonWorkout("legs", "pistol squat");
         assertEquals(10, testWorkouts.getLegsLength());
+    }
+
+    @Test
+    void addUncommonWorkoutTestNotCategory() {
+        testWorkouts.addUncommonWorkout("adas", "woo");
+        assertEquals(1, testWorkouts.empty.size());
     }
 }

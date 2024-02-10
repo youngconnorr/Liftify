@@ -15,6 +15,15 @@ public class RecordsTest {
     }
 
     @Test
+    void testConstructor() {
+        assertTrue(testRecord.nameOfRecords.get("push").isEmpty());
+        assertTrue(testRecord.nameOfRecords.get("pull").isEmpty());
+        assertTrue(testRecord.nameOfRecords.get("legs").isEmpty());
+
+        assertEquals(testRecord.nameOfRecords, testRecord.allRecords.get(0));
+    }
+
+    @Test
     void addWorkoutToRecordTestOnce() {
         testRecord.addWorkoutToRecord("push", "bench", "413");
         assertEquals(1, testRecord.pushRecords.size());
@@ -58,6 +67,76 @@ public class RecordsTest {
         assertEquals("150", testRecord.pushRecords.get("bench"));
         assertEquals("180", testRecord.pullRecords.get("lat pulldowns"));
         assertEquals("190", testRecord.legsRecords.get("squat"));
+    }
+
+    @Test
+    void removeWorkoutFromRecordOnce() {
+        testRecord.addWorkoutToRecord("push", "bench", "413");
+        testRecord.removeWorkoutFromRecord("push", "bench");
+        assertEquals(0, testRecord.pushRecords.size());
+        assertTrue(testRecord.pushRecords.isEmpty());
+    }
+
+    @Test
+    void removeWorkoutFromRecordMulti() {
+        testRecord.addWorkoutToRecord("push", "bench", "413");
+        testRecord.addWorkoutToRecord("push", "yo", "10");
+        testRecord.addWorkoutToRecord("push", "dips", "1");
+        testRecord.removeWorkoutFromRecord("push", "bench");
+        testRecord.removeWorkoutFromRecord("push", "yo");
+        assertEquals(1, testRecord.pushRecords.size());
+        testRecord.removeWorkoutFromRecord("push", "dips");
+        assertEquals(0, testRecord.pushRecords.size());
+    }
+
+    @Test
+    void removeWorkoutFromRecordDifferentKeys() {
+        testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.addWorkoutToRecord("push", "dips", "150");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "180");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "190");
+        testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.removeWorkoutFromRecord("pull", "lat pulldowns");
+        testRecord.removeWorkoutFromRecord("push", "dips");
+        testRecord.removeWorkoutFromRecord("legs", "squat");
+        testRecord.removeWorkoutFromRecord("legs", "squat");
+        assertEquals(1, testRecord.pushRecords.size());
+        assertEquals(0, testRecord.pullRecords.size());
+        assertEquals(0, testRecord.legsRecords.size());
+    }
+
+    @Test
+    void whichRecordListTest() {
+        testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
+        assertTrue(testRecord.whichRecordList("push", "bench"));
+        assertTrue(testRecord.whichRecordList("pull", "lat pulldowns"));
+        assertTrue(testRecord.whichRecordList("legs", "squat"));
+
+
+    }
+
+    @Test
+    void whichWorkoutListTestFalse() {
+        testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
+        assertFalse(testRecord.whichRecordList("heh", "bench"));
+        assertFalse(testRecord.whichRecordList("pulll", "lats"));
+        assertFalse(testRecord.whichRecordList("legsss", "squat"));
+    }
+
+    @Test
+    void whichWorkoutListTestFalseNot() {
+        testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
+        assertFalse(testRecord.whichRecordList("push", "lunge"));
+        assertFalse(testRecord.whichRecordList("pull", "lifts"));
+        assertFalse(testRecord.whichRecordList("legs", "jumpys"));
     }
 
 }
