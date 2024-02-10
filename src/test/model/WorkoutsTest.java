@@ -63,18 +63,42 @@ public class WorkoutsTest {
         assertEquals(9, testWorkouts.getLegsLength());
     }
 
+    @Test
+    void addUncommonWorkoutTestPushDups() {
+        testWorkouts.addUncommonWorkout("push", "skull crushers");
+        testWorkouts.addUncommonWorkout("push", "skull crushers");
+        testWorkouts.addUncommonWorkout("push", "skull crushers");
+        testWorkouts.addUncommonWorkout("pull", "hammer curls");
+        testWorkouts.addUncommonWorkout("pull", "hammer curls");
+        testWorkouts.addUncommonWorkout("pull", "hammer curls");
+        testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        assertEquals(9, testWorkouts.getPushLength());
+        assertEquals(11, testWorkouts.getPullLength());
+        assertEquals(11, testWorkouts.getLegsLength());
+    }
+
 
     @Test
-    void addUncommonWorkoutTestMultiPush() {
-        testWorkouts.addUncommonWorkout("push", "pushups");
+    void addUncommonWorkoutTestMulti() {
+        testWorkouts.addUncommonWorkout("PUSH", "pushups");
+        testWorkouts.addUncommonWorkout("PUsH", "PUSPS");
         testWorkouts.addUncommonWorkout("push", "one arm pushup");
-        testWorkouts.addUncommonWorkout("pull", "hammer curls");
+        testWorkouts.addUncommonWorkout("", "one arm pushup");
+        testWorkouts.addUncommonWorkout("p u s h", "one arm pushup");
+        testWorkouts.addUncommonWorkout("", "HAMmer curls");
+        testWorkouts.addUncommonWorkout("PuLL", "hammer curls");
         testWorkouts.addUncommonWorkout("pull", "right curls");
-        testWorkouts.addUncommonWorkout("legs", "dumbbell one leg");
+        testWorkouts.addUncommonWorkout("LEGS", "dumbbell one leg");
+        testWorkouts.addUncommonWorkout("", "dumbbell one leg");
+        testWorkouts.addUncommonWorkout("LeGS", "dumbbell one leg");
         testWorkouts.addUncommonWorkout("legs", "pistol squat");
-        assertEquals(8, testWorkouts.getPushLength());
-        assertEquals(10, testWorkouts.getPullLength());
-        assertEquals(10, testWorkouts.getLegsLength());
+        assertEquals(7, testWorkouts.getPushLength());
+        assertEquals(9, testWorkouts.getPullLength());
+        assertEquals(9, testWorkouts.getLegsLength());
+        assertEquals(9, testWorkouts.empty.size());
+
 
     }
 
@@ -87,8 +111,8 @@ public class WorkoutsTest {
     @Test
     void addUncommonWorkoutTestNotCategoryMulti() {
         testWorkouts.addUncommonWorkout("adas", "woo");
-        testWorkouts.addUncommonWorkout("sas", "jo");
-        testWorkouts.addUncommonWorkout("ooas", "woo");
+        testWorkouts.addUncommonWorkout("SAS", "jo");
+        testWorkouts.addUncommonWorkout("ooas", "WOO");
         assertEquals(3, testWorkouts.empty.size());
     }
 
@@ -99,13 +123,12 @@ public class WorkoutsTest {
         assertEquals(2, testWorkouts.empty.size());
         testWorkouts.addUncommonWorkout("ooas", "woo");
         testWorkouts.addUncommonWorkout("push", "skull crushers");
-        testWorkouts.addUncommonWorkout("pull", "hammer curls");
-        testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        testWorkouts.addUncommonWorkout("pull", "HAMMER CURLES");
+        testWorkouts.addUncommonWorkout("legs", "SIsY squat");
         testWorkouts.addUncommonWorkout("push", "sissy squat");
         assertEquals(3, testWorkouts.empty.size());
         assertEquals(9, testWorkouts.pull.size());
         assertEquals(9, testWorkouts.legs.size());
         assertEquals(8, testWorkouts.push.size());
-
     }
 }

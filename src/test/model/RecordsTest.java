@@ -44,15 +44,31 @@ public class RecordsTest {
     void addWorkoutToRecordTestMulti() {
         testRecord.addWorkoutToRecord("push", "bench", "413");
         testRecord.addWorkoutToRecord("push", "yo", "10");
+        testRecord.addWorkoutToRecord("push", "yo", "10");
         testRecord.addWorkoutToRecord("push", "dips", "1");
+        testRecord.addWorkoutToRecord("legs", "squat", "1");
+        testRecord.addWorkoutToRecord("legs", "squat", "1");
+        testRecord.addWorkoutToRecord("legs", "squat", "1");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "1");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "1");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "1");
         assertEquals(3, testRecord.pushRecords.size());
+        assertEquals(1, testRecord.pullRecords.size());
+        assertEquals(1, testRecord.legsRecords.size());
     }
 
     @Test
     void addWorkoutToRecordSameKeyDiffValue() {
         testRecord.addWorkoutToRecord("push", "bench", "135");
         testRecord.addWorkoutToRecord("push", "bench", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "1");
+        testRecord.addWorkoutToRecord("legs", "squat", "100");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "1");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "20");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "1");
         assertEquals("140", testRecord.pushRecords.get("bench"));
+        assertEquals("100", testRecord.legsRecords.get("squat"));
+        assertEquals("1", testRecord.pullRecords.get("lat pulldowns"));
     }
 
     @Test
@@ -103,13 +119,22 @@ public class RecordsTest {
     void removeWorkoutFromRecordDifferentKeys() {
         testRecord.addWorkoutToRecord("push", "bench", "140");
         testRecord.addWorkoutToRecord("push", "dips", "150");
+        testRecord.addWorkoutToRecord("push", "dips", "150");
+        testRecord.addWorkoutToRecord("push", "dips", "150");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
         testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
         testRecord.addWorkoutToRecord("pull", "lat pulldowns", "180");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "190");
         testRecord.addWorkoutToRecord("push", "bench", "140");
         testRecord.removeWorkoutFromRecord("pull", "lat pulldowns");
+        testRecord.removeWorkoutFromRecord("pull", "lat pulldowns");
+        testRecord.removeWorkoutFromRecord("pull", "lat pulldowns");
         testRecord.removeWorkoutFromRecord("push", "dips");
+        testRecord.removeWorkoutFromRecord("legs", "squat");
+        testRecord.removeWorkoutFromRecord("legs", "squat");
+        testRecord.removeWorkoutFromRecord("legs", "squat");
         testRecord.removeWorkoutFromRecord("legs", "squat");
         testRecord.removeWorkoutFromRecord("legs", "squat");
         assertEquals(1, testRecord.pushRecords.size());
