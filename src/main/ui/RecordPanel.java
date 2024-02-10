@@ -2,6 +2,8 @@ package ui;
 
 import model.Records;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // Represents the different types of records
@@ -39,6 +41,9 @@ public class RecordPanel extends Records {
         System.out.println("\nPush Records:" + pushRecords);
         System.out.println("\nPull Records: " + pullRecords);
         System.out.println("\nLegs Records:" + legsRecords);
+    }
+
+    public void viewRecordsOptions() {
         System.out.println("\nremove -> remove a record from a category");
         System.out.println("back -> go back to record menu");
     }
@@ -47,133 +52,71 @@ public class RecordPanel extends Records {
     public String runView() {
 
         viewRecords();
-        String nextPath = input.next().toLowerCase();
-        return checkBackView(nextPath);
+        return checkBackView();
     }
 
     //EFFECT: check to see if user typed back and repeat if they didn't
-    public String checkBackView(String nextPath) {
+    public String checkBackView() {
         while (true) {
+            viewRecordsOptions();
+            String nextPath = input.next().toLowerCase();
             if (nextPath.equals("back")) {
                 return "back";
             } else if (nextPath.equals("remove")) {
-                removeWorkout();
-            } else {
-                System.out.println("Please input valid option.");
-                String rightPath = input.next().toLowerCase();
-                checkBackView(rightPath);
-            }
-        }
-    }
-
-    public void removeWorkout() {
-        String cat = categoryToRemove();
-        if (!cat.equals("back")) {
-            String work = workoutToRemove(cat);
-            if (!work.equals("back")) {
-                removeWorkoutFromRecord(cat, work);
-                System.out.println("Workout Removed");
-                runRecordPanel();
-            } else {
-                runRecordPanel();
-            }
-        } else {
-            runRecordPanel();
-        }
-    }
-
-    public void printCategoryRemoval() {
-        System.out.println("\nChoose one of these categories to remove from or go back.");
-        System.out.println("push -> push category");
-        System.out.println("pull -> pull category");
-        System.out.println("legs -> legs category");
-        System.out.println("back -> go back to record menu");
-    }
-
-    public boolean pushChecker() {
-        if (pushRecords.isEmpty()) {
-            System.out.println("\nChoose one of these categories to remove from or go back.");
-            System.out.println("push" + pushRecords);
-            System.out.println("pull" + pullRecords);
-            System.out.println("legs" + legsRecords);
-            System.out.println("back -> go back to record menu");
-
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean pullChecker() {
-        if (pullRecords.isEmpty()) {
-            System.out.println("\nChoose one of these categories to remove from or go back.");
-            System.out.println("push" + pushRecords);
-            System.out.println("pull" + pullRecords);
-            System.out.println("legs" + legsRecords);
-            System.out.println("back -> go back to record menu");
-
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean legsChecker() {
-        if (legsRecords.isEmpty()) {
-            System.out.println("\nChoose one of these categories to remove from or go back.");
-            System.out.println("push" + pushRecords);
-            System.out.println("pull" + pullRecords);
-            System.out.println("legs" + legsRecords);
-            System.out.println("back -> go back to record menu");
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-
-    public String categoryToRemove() {
-        printCategoryRemoval();
-        while (true) {
-            String removeCat = input.next().toLowerCase();
-            if (checker("category", removeCat)) {
-                if (removeCat.equals("push")) {
-                    if (pushChecker()) {
-                        return removeCat;
-                    }
-                } else if (removeCat.equals("pull")) {
-                    if (pullChecker()) {
-                        return removeCat;
-                    }
-                } else if (removeCat.equals("legs")) {
-                    if (legsChecker()) {
-                        return removeCat;
-                    }
-                } else if (removeCat.equals("back")) {
-                    runRecordPanel();
+                if (removeWorkout().equals("back")) {
+                    return "back";
                 }
             } else {
-                categoryToRemove();
+                System.out.println("Please input valid option.");
             }
         }
     }
 
-    public String workoutToRemove(String cat) {
-        while (true) {
-            System.out.println("\nWhat workout would you like to remove from this category?");
-            if (cat.equals("push")) {
-                System.out.println(pushRecords);
-            } else if (cat.equals("pull")) {
-                System.out.println(pullRecords);
-            } else if (cat.equals("legs")) {
-                System.out.println(legsRecords);
+    protected void ignoreRecordsEmpty() {
+        for (Map.Entry<String, LinkedHashMap<String, String>> categories : nameOfRecords.entrySet()) {
+            String category = categories.getKey();
+            LinkedHashMap<String, String> categoryRecords = categories.getValue();
+
+            if (!categoryRecords.isEmpty()) {
+                System.out.println("\n" + category + " | ");
+                for (Map.Entry<String, String> record : categoryRecords.entrySet()) {
+                    System.out.println(record.getKey() + ":" + record.getValue());
+                }
             }
-            System.out.println("\nback -> go back to record menu");
-            String removeWork = input.next().toLowerCase();
-            if (whichWorkoutList(cat, removeWork)) {
-                return removeWork;
-            } else {
-                System.out.println("Please input a valid answer.");
+        }
+    }
+
+    public String removeWorkout() {
+//        String cat = categoryToRemoveText();
+//        if (!cat.equals("back")) {
+        String work = workoutToRemove(); //took away cat parameter
+        if (work.equals("back")) {
+            return "back";
+        } else {
+            return "back";
+        }
+    }
+
+    public String workoutToRemove() {
+        while (true) {
+            System.out.println("\nChoose your category or go back.");
+            System.out.println("\nback -> go back to the record menu");
+            ignoreRecordsEmpty();
+            String cat = input.next().toLowerCase();
+            if (cat.equals("back")) {
+                return "back";
+            } else if (checker("category", cat)) {
+                System.out.println("\nNow choose your workout");
+                String workout = input.next().toLowerCase();
+                if (workout.equals("back")) {
+                    return "back";
+                } else if (whichRecordList(cat, workout)) {
+                    super.removeWorkoutFromRecord(cat, workout);
+                    System.out.println("Workout Removed");
+                    return "back";
+                } else {
+                    System.out.println("That workout doesn't exist.");
+                }
             }
         }
     }
@@ -232,7 +175,6 @@ public class RecordPanel extends Records {
                 return path;
             } else {
                 System.out.println("Invalid entry. Please select one of the options.");
-
             }
         }
     }
@@ -283,9 +225,10 @@ public class RecordPanel extends Records {
             if (inWorkoutList) {
                 return exercise;
             }
+            notCommonWorkout(exercise);
             while (!inWorkoutList && con) {
-                notCommonWorkout(exercise);
-                String output = input.next();
+                notCommonWorkoutOptions();
+                String output = input.next().toLowerCase();
                 if (output.equals("y")) {
                     return exercise;
                 } else if (output.equals("n")) {
@@ -293,19 +236,21 @@ public class RecordPanel extends Records {
                 } else if (output.equals("q")) {
                     return output;
                 } else {
-                    System.out.println("Please enter Yes or no.");
+                    System.out.println("Please enter y/n/q.");
                 }
             }
         }
     }
 
     public void notCommonWorkout(String exercise) {
-        System.out.println("\n" + exercise + " isn't in our common workouts.");
+        System.out.println("\n" + exercise + " isn't in our common workouts for this category.");
         System.out.println("\nwould you like to add " + exercise + " as one of your records?");
+    }
+
+    public void notCommonWorkoutOptions() {
         System.out.println("\ty -> yes add to my records");
         System.out.println("\tn -> no do not add to my records");
         System.out.println("\tq -> go back to record menu");
-
     }
 
     //EFFECT: ask user for weight, checks if input is number and catches if not

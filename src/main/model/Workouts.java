@@ -33,6 +33,7 @@ public class Workouts {
         legs.add("bulgarian split squat");
         legs.add("front squat");
         legs.add("leg curl");
+
     }
 
     //EFFECT: check if the workout is in the common workout list or not return boolean
@@ -57,4 +58,17 @@ public class Workouts {
             legs.add(workout);
         }
     }
+
+    public int getPushLength() {
+        return push.size();
+    }
+
+    public int getPullLength() {
+        return pull.size();
+    }
+
+    public int getLegsLength() {
+        return legs.size();
+    }
+
 }
