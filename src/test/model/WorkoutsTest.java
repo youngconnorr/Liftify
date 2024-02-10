@@ -30,84 +30,79 @@ public class WorkoutsTest {
     }
 
     @Test
-    void whichWorkoutListTestPush() {
-        assertTrue(testWorkouts.whichWorkoutList("push", "bench"));
-    }
-
-    @Test
-    void whichWorkoutListTestPull() {
+    void whichWorkoutListTest() {
         assertTrue(testWorkouts.whichWorkoutList("pull", "lat pulldowns"));
-    }
-
-    @Test
-    void whichWorkoutListTestLegs() {
+        assertTrue(testWorkouts.whichWorkoutList("push", "bench"));
         assertTrue(testWorkouts.whichWorkoutList("legs", "squat"));
     }
 
     @Test
     void whichWorkoutListTestFalse() {
         assertFalse(testWorkouts.whichWorkoutList("heh", "bench"));
+        assertFalse(testWorkouts.whichWorkoutList("heh", "squat"));
+        assertFalse(testWorkouts.whichWorkoutList("heh", "latp pulldowns"));
     }
 
     @Test
-    void whichWorkoutListTestFalseNotInPush() {
+    void whichWorkoutListTestFalseNot() {
         assertFalse(testWorkouts.whichWorkoutList("push", "lunge"));
-    }
-
-    @Test
-    void whichWorkoutListTestFalseNotInPull() {
         assertFalse(testWorkouts.whichWorkoutList("pull", "bench"));
-    }
-
-    @Test
-    void whichWorkoutListTestFalseNotInLegs() {
         assertFalse(testWorkouts.whichWorkoutList("legs", "lats"));
     }
 
     @Test
     void addUncommonWorkoutTestPush() {
         testWorkouts.addUncommonWorkout("push", "skull crushers");
-        assertEquals(7, testWorkouts.getPushLength());
-    }
-
-    @Test
-    void addUncommonWorkoutTestPull() {
         testWorkouts.addUncommonWorkout("pull", "hammer curls");
-        assertEquals(9, testWorkouts.getPullLength());
-    }
-
-    @Test
-    void addUncommonWorkoutTestLegs() {
         testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        assertEquals(7, testWorkouts.getPushLength());
+        assertEquals(9, testWorkouts.getPullLength());
         assertEquals(9, testWorkouts.getLegsLength());
     }
+
 
     @Test
     void addUncommonWorkoutTestMultiPush() {
         testWorkouts.addUncommonWorkout("push", "pushups");
         testWorkouts.addUncommonWorkout("push", "one arm pushup");
-        assertEquals(8, testWorkouts.getPushLength());
-
-    }
-
-    @Test
-    void addUncommonWorkoutTestMultiPull() {
         testWorkouts.addUncommonWorkout("pull", "hammer curls");
         testWorkouts.addUncommonWorkout("pull", "right curls");
-        assertEquals(10, testWorkouts.getPullLength());
-
-    }
-
-    @Test
-    void addUncommonWorkoutTestMultiLegs() {
         testWorkouts.addUncommonWorkout("legs", "dumbbell one leg");
         testWorkouts.addUncommonWorkout("legs", "pistol squat");
+        assertEquals(8, testWorkouts.getPushLength());
+        assertEquals(10, testWorkouts.getPullLength());
         assertEquals(10, testWorkouts.getLegsLength());
+
     }
 
     @Test
     void addUncommonWorkoutTestNotCategory() {
         testWorkouts.addUncommonWorkout("adas", "woo");
         assertEquals(1, testWorkouts.empty.size());
+    }
+
+    @Test
+    void addUncommonWorkoutTestNotCategoryMulti() {
+        testWorkouts.addUncommonWorkout("adas", "woo");
+        testWorkouts.addUncommonWorkout("sas", "jo");
+        testWorkouts.addUncommonWorkout("ooas", "woo");
+        assertEquals(3, testWorkouts.empty.size());
+    }
+
+    @Test
+    void addUncommonWorkoutTestNotCategoryMultiWithOthers() {
+        testWorkouts.addUncommonWorkout("adas", "woo");
+        testWorkouts.addUncommonWorkout("sas", "jo");
+        assertEquals(2, testWorkouts.empty.size());
+        testWorkouts.addUncommonWorkout("ooas", "woo");
+        testWorkouts.addUncommonWorkout("push", "skull crushers");
+        testWorkouts.addUncommonWorkout("pull", "hammer curls");
+        testWorkouts.addUncommonWorkout("legs", "sissy squat");
+        testWorkouts.addUncommonWorkout("push", "sissy squat");
+        assertEquals(3, testWorkouts.empty.size());
+        assertEquals(9, testWorkouts.pull.size());
+        assertEquals(9, testWorkouts.legs.size());
+        assertEquals(8, testWorkouts.push.size());
+
     }
 }

@@ -120,7 +120,7 @@ public class RecordsTest {
     }
 
     @Test
-    void whichWorkoutListTestFalse() {
+    void whichRecordListTestFalse() {
         testRecord.addWorkoutToRecord("push", "bench", "140");
         testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "140");
@@ -130,7 +130,7 @@ public class RecordsTest {
     }
 
     @Test
-    void whichWorkoutListTestFalseNot() {
+    void whichRecordListTestFalseNot() {
         testRecord.addWorkoutToRecord("push", "bench", "140");
         testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "140");
