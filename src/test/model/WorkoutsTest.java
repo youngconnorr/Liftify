@@ -27,6 +27,9 @@ public class WorkoutsTest {
         assertEquals(1, testWorkouts.push.indexOf("bench"));
         assertEquals(1, testWorkouts.pull.indexOf("lat pulldowns"));
         assertEquals(1, testWorkouts.legs.indexOf("rdl"));
+        assertFalse(testWorkouts.push.isEmpty());
+        assertFalse(testWorkouts.pull.isEmpty());
+        assertFalse(testWorkouts.legs.isEmpty());
     }
 
     @Test

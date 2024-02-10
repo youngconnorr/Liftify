@@ -20,14 +20,24 @@ public class RecordsTest {
         assertTrue(testRecord.nameOfRecords.get("pull").isEmpty());
         assertTrue(testRecord.nameOfRecords.get("legs").isEmpty());
 
+        assertTrue(testRecord.pushRecords.isEmpty());
+        assertTrue(testRecord.pullRecords.isEmpty());
+        assertTrue(testRecord.legsRecords.isEmpty());
+
         assertEquals(testRecord.nameOfRecords, testRecord.allRecords.get(0));
     }
 
     @Test
     void addWorkoutToRecordTestOnce() {
         testRecord.addWorkoutToRecord("push", "bench", "413");
+        testRecord.addWorkoutToRecord("pull", "lat pulldowns", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "310");
         assertEquals(1, testRecord.pushRecords.size());
+        assertEquals(1, testRecord.pullRecords.size());
+        assertEquals(1, testRecord.legsRecords.size());
         assertEquals("413", testRecord.pushRecords.get("bench"));
+        assertEquals("140", testRecord.pullRecords.get("lat pulldowns"));
+        assertEquals("310", testRecord.legsRecords.get("squat"));
     }
 
     @Test
