@@ -41,6 +41,30 @@ public class RecordsTest {
     }
 
     @Test
+    void testAddWorkoutToPushRecord() {
+        testRecord.addWorkoutToRecord("push", "Bench Press", "150");
+        assertTrue(testRecord.whichRecordList("push", "Bench Press"));
+        assertFalse(testRecord.whichRecordList("pull", "Bench Press"));
+        assertFalse(testRecord.whichRecordList("legs", "Bench Press"));
+    }
+
+    @Test
+    void testAddWorkoutToPullRecord() {
+        testRecord.addWorkoutToRecord("pull", "Pull-ups", "bodyweight");
+        assertTrue(testRecord.whichRecordList("pull", "Pull-ups"));
+        assertFalse(testRecord.whichRecordList("push", "Pull-ups"));
+        assertFalse(testRecord.whichRecordList("legs", "Pull-ups"));
+    }
+
+    @Test
+    void testAddWorkoutToLegsRecord() {
+        testRecord.addWorkoutToRecord("legs", "Squats", "200");
+        assertTrue(testRecord.whichRecordList("legs", "Squats"));
+        assertFalse(testRecord.whichRecordList("push", "Squats"));
+        assertFalse(testRecord.whichRecordList("pull", "Squats"));
+    }
+
+    @Test
     void addWorkoutToRecordTestMulti() {
         testRecord.addWorkoutToRecord("push", "bench", "413");
         testRecord.addWorkoutToRecord("push", "yo", "10");
@@ -191,6 +215,21 @@ public class RecordsTest {
         assertFalse(testRecord.whichRecordList("legs", "jumpys"));
         testRecord.addWorkoutToRecord("legs", "jumpys", "160");
         assertTrue(testRecord.whichRecordList("legs", "jumpys"));
+    }
+
+    @Test
+    void testWhichRecordList() {
+        assertFalse(testRecord.whichRecordList("push", "Bench Press"));
+        assertFalse(testRecord.whichRecordList("pull", "Pull-ups"));
+        assertFalse(testRecord.whichRecordList("legs", "Squats"));
+
+        testRecord.addWorkoutToRecord("push", "Bench Press", "150");
+        testRecord.addWorkoutToRecord("pull", "Pull-ups", "bodyweight");
+        testRecord.addWorkoutToRecord("legs", "Squats", "200");
+
+        assertTrue(testRecord.whichRecordList("push", "Bench Press"));
+        assertTrue(testRecord.whichRecordList("pull", "Pull-ups"));
+        assertTrue(testRecord.whichRecordList("legs", "Squats"));
     }
 
 }

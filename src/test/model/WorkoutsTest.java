@@ -40,6 +40,14 @@ public class WorkoutsTest {
     }
 
     @Test
+    void whichWorkoutListTestFalseTrue() {
+        assertTrue(testWorkouts.whichWorkoutList("push", "bench press"));
+        assertFalse(testWorkouts.whichWorkoutList("pull", "squat"));
+        assertTrue(testWorkouts.whichWorkoutList("legs", "squat"));
+        assertFalse(testWorkouts.whichWorkoutList("gggg", "exercise"));
+    }
+
+    @Test
     void whichWorkoutListTestFalse() {
         assertFalse(testWorkouts.whichWorkoutList("heh", "bench"));
         assertFalse(testWorkouts.whichWorkoutList("heh", "squat"));
@@ -135,4 +143,26 @@ public class WorkoutsTest {
         assertEquals(9, testWorkouts.legs.size());
         assertEquals(8, testWorkouts.push.size());
     }
+
+    @Test
+    void addUncommonWorkoutTestInitial() {
+        int initialPushSize = testWorkouts.getPushLength();
+        int initialPullSize = testWorkouts.getPullLength();
+        int initialLegsSize = testWorkouts.getLegsLength();
+
+        testWorkouts.addUncommonWorkout("push", "push exercise");
+        testWorkouts.addUncommonWorkout("pull", "pull exercise");
+        testWorkouts.addUncommonWorkout("legs", "legs exercise");
+        testWorkouts.addUncommonWorkout("not", " exercise");
+
+        assertTrue(testWorkouts.whichWorkoutList("push", "push exercise"));
+        assertTrue(testWorkouts.whichWorkoutList("pull", "pull exercise"));
+        assertTrue(testWorkouts.whichWorkoutList("legs", "legs exercise"));
+
+        assertEquals(initialPushSize + 1, testWorkouts.getPushLength());
+        assertEquals(initialPullSize + 1, testWorkouts.getPullLength());
+        assertEquals(initialLegsSize + 1, testWorkouts.getLegsLength());
+    }
+
+
 }
