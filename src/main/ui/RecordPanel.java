@@ -40,7 +40,7 @@ public class RecordPanel extends Records {
     //EFFECT: display records lists
     private void viewRecords() {
         System.out.println("\nPush Records:" + pushRecords);
-        System.out.println("\nPull Records: " + pullRecords);
+        System.out.println("\nPull Records:" + pullRecords);
         System.out.println("\nLegs Records:" + legsRecords);
     }
 
