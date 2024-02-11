@@ -61,6 +61,9 @@ public class WorkoutsTest {
         assertEquals(7, testWorkouts.getPushLength());
         assertEquals(9, testWorkouts.getPullLength());
         assertEquals(9, testWorkouts.getLegsLength());
+        assertEquals(6, testWorkouts.push.indexOf("skull crushers"));
+        assertEquals(8, testWorkouts.pull.indexOf("hammer curls"));
+        assertEquals(testWorkouts.legs.size() - 1, testWorkouts.legs.indexOf("sissy squat"));
     }
 
     @Test
@@ -77,6 +80,7 @@ public class WorkoutsTest {
         assertEquals(9, testWorkouts.getPushLength());
         assertEquals(11, testWorkouts.getPullLength());
         assertEquals(11, testWorkouts.getLegsLength());
+
     }
 
 
