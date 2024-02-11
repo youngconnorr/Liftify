@@ -33,35 +33,28 @@ public class Records extends Workouts {
     //MODIFIES: this
     //EFFECT: adds workout to category according to arguments given
     protected void addWorkoutToRecord(String category, String exercise, String weight) {
-        switch (category) {
-            case "push":
-                pushRecords.put(exercise, weight);
-                break;
-            case "pull":
-                pullRecords.put(exercise, weight);
-                break;
-            case "legs":
-                legsRecords.put(exercise, weight);
-                break;
+        if (category.equals("push")) {
+            pushRecords.put(exercise, weight);
+        } else if (category.equals("pull")) {
+            pullRecords.put(exercise, weight);
+        } else if (category.equals("legs")) {
+            legsRecords.put(exercise, weight);
         }
     }
 
     //MODIFIES: this
     //EFFECT: removes workout from specified category
     protected void removeWorkoutFromRecord(String category, String exercise) {
-        switch (category) {
-            case "push":
-                pushRecords.remove(exercise);
-                break;
-            case "pull":
-                pullRecords.remove(exercise);
-                break;
-            case "legs":
-                legsRecords.remove(exercise);
-                break;
+        if (category.equals("push")) {
+            pushRecords.remove(exercise);
+        } else if (category.equals("pull")) {
+            pullRecords.remove(exercise);
+        } else if (category.equals("legs")) {
+            legsRecords.remove(exercise);
         }
     }
 
+    //EFFECT: return true if record contains workout, false otherwise
     public boolean whichRecordList(String category, String workout) {
         if (category.equals("push")) {
             return pushRecords.containsKey(workout);

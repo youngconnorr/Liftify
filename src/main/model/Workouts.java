@@ -50,6 +50,8 @@ public class Workouts {
         }
     }
 
+    //MODIFIES: this
+    //EFFECT: adds workout to common list
     public void addUncommonWorkout(String category, String workout) {
         if (category.equals("push")) {
             push.add(workout);
