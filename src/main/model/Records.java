@@ -10,7 +10,7 @@ public class Records extends Workouts {
     protected LinkedHashMap<String, String> legsRecords;
     protected Map<String, LinkedHashMap<String, String>> nameOfRecords;
     protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords;
-
+    protected ArrayList<String> empty;
 
     public Records() {
         pushRecords = new LinkedHashMap<>(); // is a list of all push workout records
@@ -24,7 +24,7 @@ public class Records extends Workouts {
 
         nameOfRecords.put("legs", legsRecords);
 
-
+        empty = new ArrayList<>();
         allRecords = new ArrayList<>();
         allRecords.add(nameOfRecords);
 
@@ -39,7 +39,10 @@ public class Records extends Workouts {
             pullRecords.put(exercise, weight);
         } else if (category.equals("legs")) {
             legsRecords.put(exercise, weight);
+        } else {
+            empty.add("workout");
         }
+
     }
 
     //MODIFIES: this
@@ -51,6 +54,8 @@ public class Records extends Workouts {
             pullRecords.remove(exercise);
         } else if (category.equals("legs")) {
             legsRecords.remove(exercise);
+        } else {
+            empty.remove("workout");
         }
     }
 
@@ -66,7 +71,6 @@ public class Records extends Workouts {
             return false;
         }
     }
-
 
 
 }

@@ -79,6 +79,26 @@ public class RecordsTest {
     }
 
     @Test
+    void testRemoveNonExistingCategory() {
+        testRecord.addWorkoutToRecord("LEGGGOGO", "Deadlifts", "400");
+        assertEquals(1, testRecord.empty.size());
+        testRecord.removeWorkoutFromRecord("LEGGGOGO", "Deadlifts");
+        assertEquals(0, testRecord.empty.size());
+    }
+
+    @Test
+    void testRemoveNonExistingCategoryMulti() {
+        testRecord.addWorkoutToRecord("LEGGGOGO", "Deadlifts", "400");
+        testRecord.addWorkoutToRecord("LEGGGOGO", "Deadlifts", "400");
+        testRecord.addWorkoutToRecord("LEGGGOGO", "Deadlifts", "400");
+        assertEquals(3, testRecord.empty.size());
+        testRecord.removeWorkoutFromRecord("LEGGGOGO", "Deadlifts");
+        testRecord.removeWorkoutFromRecord("LEGGGOGO", "Deadlifts");
+        testRecord.removeWorkoutFromRecord("LEGGGOGO", "Deadlifts");
+        assertEquals(0, testRecord.empty.size());
+    }
+
+    @Test
     void testAddWorkoutToLegsRecord() {
         testRecord.addWorkoutToRecord("legs", "Squats", "200");
         assertTrue(testRecord.whichRecordList("legs", "Squats"));
