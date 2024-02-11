@@ -6,19 +6,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-// Represents the different types of records
+//The part of the application that shows the record menu and the choices inside of it
 public class RecordPanel extends Records {
     Scanner input;
 
     //EFFECT: creates empty lists of records and calls common workouts from supertype
     public RecordPanel() {
-        super();
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
+        super();                             //extends all record lists and common workout lists
+        input = new Scanner(System.in);      //instantiates a variable to take in user input
+        input.useDelimiter("\n");    //read user input at new line input
     }
 
+
     //EFFECT: Runs whichPath to determine path user wants to go, call methods accordingly
-    protected String runRecordPanel() {
+    public String runRecordPanel() {
 
         String chosenPath = whichPath();
         if (chosenPath.equals("view")) {
@@ -37,19 +38,19 @@ public class RecordPanel extends Records {
     }
 
     //EFFECT: display records lists
-    public void viewRecords() {
+    private void viewRecords() {
         System.out.println("\nPush Records:" + pushRecords);
         System.out.println("\nPull Records: " + pullRecords);
         System.out.println("\nLegs Records:" + legsRecords);
     }
 
     //EFFECT: display options of view
-    public void viewRecordsOptions() {
+    private void viewRecordsOptions() {
         System.out.println("\nremove -> remove a record from a category");
         System.out.println("back -> go back to record menu");
     }
 
-    //EFFECT:display the records lists and calls checkBackView to see if user wants to go back
+    //EFFECT:display the records lists and checks to see if user wants to go back
     public String runView() {
         viewRecords();
         return checkBackView();
@@ -72,8 +73,9 @@ public class RecordPanel extends Records {
         }
     }
 
-    //EFFECT: iterates through list of key-value pair and checks if key is empty, if not empty then print list
-    protected void ignoreRecordsEmpty() {
+    //EFFECT: iterates through list of key-value pair and checks if key is empty
+    //        if not empty then print list
+    private void ignoreRecordsEmpty() {
         for (Map.Entry<String, LinkedHashMap<String, String>> categories : nameOfRecords.entrySet()) {
             String category = categories.getKey(); //categories
             LinkedHashMap<String, String> categoryRecords = categories.getValue(); //the workouts in category
@@ -101,7 +103,7 @@ public class RecordPanel extends Records {
     public String workoutToRemove() {
         while (true) {
             System.out.println("\nChoose your category or go back.");
-            System.out.println("\nback -> go back to the record menu");
+            System.out.println("back -> go back to the record menu");
             ignoreRecordsEmpty();
             String cat = input.next().toLowerCase();
             if (cat.equals("back")) {
@@ -122,8 +124,9 @@ public class RecordPanel extends Records {
         }
     }
 
-    //EFFECT: dynamic checker for different cases, returns true if user input is valid, false otherwise
-    public boolean checker(String e, String userInput) {
+    //EFFECT: dynamic checker for different cases, returns true if user input is valid,
+    //        false otherwise
+    private boolean checker(String e, String userInput) {
         if (e.equals("category")) {
             return userInput.equals("push")
                     || userInput.equals("pull")
@@ -158,14 +161,15 @@ public class RecordPanel extends Records {
     }
 
     //EFFECT: ask which path user wants to go inside of records
-    public void path() {
+    private void path() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\tview   -> view your personal records");
         System.out.println("\tcreate -> create a new personal record");
         System.out.println("\tback   -> go back to main menu");
     }
 
-    //EFFECT: run path and checkPath function, return value to runRecordPanel
+    //EFFECT: determine which path user wants to go down and check if path is valid
+    //        return values the path value
     public String whichPath() {
 
         while (true) {
@@ -181,7 +185,7 @@ public class RecordPanel extends Records {
     }
 
     //EFFECT: print options of workout categories to user
-    public void whichCategory() {
+    private void whichCategory() {
         System.out.println("\nChoose the category this workout is under:");
         System.out.println("\tpush -> workouts with chest and triceps");
         System.out.println("\tpull -> workouts with back and biceps");
@@ -189,17 +193,18 @@ public class RecordPanel extends Records {
         System.out.println("\tback -> go back to record menu");
     }
 
-    //EFFECT: ask which exercise of user
-    public void whichExercise() {
+    //EFFECT: ask which exercise they want to create under the category chosen
+    private void whichExercise() {
         System.out.println("\nWhich exercise did you do in that category? (ex. bench)");
     }
 
     //EFFECT: ask user their record weight number
-    public void whatWeight() {
+    private void whatWeight() {
         System.out.println("\nWhat weight number did you achieve?");
     }
 
-    //EFFECT: calls checkCategory and returns input of user to createRecord
+    //EFFECT: asks what category user wants to add under and checks to see if category is valid
+    //        returns category that user chose
     public String findCategory() {
 
         while (true) {
@@ -214,8 +219,8 @@ public class RecordPanel extends Records {
         }
     }
 
-    //EFFECT: check whichWorkoutList and see if user wants to add workout or not to list
-//        if whichWorkoutList returns false
+    //EFFECT: check to see if user wants to add uncommon workout,
+    //        return exercise if yes, run method again if no, return output if quit
     public String findExercise(String category) {
 
         while (true) {
@@ -244,13 +249,14 @@ public class RecordPanel extends Records {
     }
 
     //EFFECT: prints statement saying their workout isn't in common list
-    public void notCommonWorkout(String exercise) {
+    //        and asks if they want to add to uncommon workouts
+    private void notCommonWorkout(String exercise) {
         System.out.println("\n" + exercise + " isn't in our common workouts for this category.");
         System.out.println("\nwould you like to add " + exercise + " as one of your records?");
     }
 
     //EFFECT: prints statement of options for uncommon workout
-    public void notCommonWorkoutOptions() {
+    private void notCommonWorkoutOptions() {
         System.out.println("\ty -> yes add to my records");
         System.out.println("\tn -> no do not add to my records");
         System.out.println("\tq -> go back to record menu");

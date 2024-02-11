@@ -2,11 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+//Contains methods that manipulate common workouts or get information about common workouts
 public class Workouts {
-    protected ArrayList<String> push = new ArrayList<>();
-    protected ArrayList<String> pull = new ArrayList<>();
-    protected ArrayList<String> legs = new ArrayList<>();
-    protected ArrayList<String> empty = new ArrayList<>();
+    protected ArrayList<String> push = new ArrayList<>();   //List of all common push workouts
+    protected ArrayList<String> pull = new ArrayList<>();   //List of all common pull workouts
+    protected ArrayList<String> legs = new ArrayList<>();   //List of all common legs workouts
+    protected ArrayList<String> empty = new ArrayList<>();  //List of all error workouts
 
     public Workouts() {
         push.add("bench press");
@@ -49,6 +50,7 @@ public class Workouts {
             return false;
         }
     }
+
 
     //MODIFIES: this
     //EFFECT: adds workout to common list

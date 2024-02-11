@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+//Contains methods that modify record lists or check information about record list
 public class Records extends Workouts {
-    protected LinkedHashMap<String, String> pushRecords;
-    protected LinkedHashMap<String, String> pullRecords;
-    protected LinkedHashMap<String, String> legsRecords;
-    protected Map<String, LinkedHashMap<String, String>> nameOfRecords;
-    protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords;
-    protected ArrayList<String> empty;
+    protected LinkedHashMap<String, String> pushRecords;            //List of all user push records
+    protected LinkedHashMap<String, String> pullRecords;            //List of all user pull records
+    protected LinkedHashMap<String, String> legsRecords;            //List of all user legs records
+    protected Map<String, LinkedHashMap<String, String>> nameOfRecords;   //category name of each list of records
+    protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords; //List containing all records with name
+    protected ArrayList<String> empty;  //List of all error records
 
     public Records() {
-        pushRecords = new LinkedHashMap<>(); // is a list of all push workout records
-        pullRecords = new LinkedHashMap<>(); // is a list of all pull workout records
-        legsRecords = new LinkedHashMap<>(); // is a list of all leg workout records
+        pushRecords = new LinkedHashMap<>();
+        pullRecords = new LinkedHashMap<>();
+        legsRecords = new LinkedHashMap<>();
         nameOfRecords = new LinkedHashMap<>();
 
         nameOfRecords.put("push", pushRecords);

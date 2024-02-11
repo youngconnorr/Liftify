@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Test for Records class
 public class RecordsTest {
 
     private Records testRecord;

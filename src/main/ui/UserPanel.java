@@ -2,12 +2,11 @@ package ui;
 
 import java.util.Scanner;
 
-
+//The main menu of application
 public class UserPanel {
 
-    Scanner input;
-    private String name;
-    private RecordPanel goToRecordPanel;
+    Scanner input;                //take in user input
+    private final RecordPanel goToRecordPanel; //Create an instance of record ui
 
 
     public UserPanel() {
@@ -17,7 +16,7 @@ public class UserPanel {
         userInterfaceUserPanel();
     }
 
-    //prints main menu screen and handles logic of choice of user
+    //EFFECT: prints main menu screen and handles logic of choice of user
     public void userInterfaceUserPanel() {
         String userMenuChoice = userMenu();
         boolean userDecision = decideChoice(userMenuChoice);
@@ -31,7 +30,7 @@ public class UserPanel {
         }
     }
 
-    //EFFECT: shows main menu and returns string of 1 and 2 depending on route chosen
+    //EFFECT: shows main menu and returns choice of user
     public String userMenu() {
         while (true) {
             userInterface();
@@ -44,16 +43,15 @@ public class UserPanel {
         }
     }
 
-    //EFFECT: prints main menu
-    public void userInterface() {
-//        System.out.println("Hi " + name + ", what would you like to do?");
+    //EFFECT: prints main menu choices
+    private void userInterface() {
         System.out.println("Main Menu:");
         System.out.println("\t1 -> Go to records");
         System.out.println("\t2 -> Go to schedule");
     }
 
     //EFFECT: checks to see if user choice is valid, return true if valid, false otherwise
-    public boolean checkChoice(String choice) {
+    private boolean checkChoice(String choice) {
         return choice.equals("1") || choice.equals("2");
     }
 
