@@ -43,6 +43,7 @@ public class RecordPanel extends Records {
         System.out.println("\nLegs Records:" + legsRecords);
     }
 
+    //EFFECT: display options of view
     public void viewRecordsOptions() {
         System.out.println("\nremove -> remove a record from a category");
         System.out.println("back -> go back to record menu");
@@ -50,7 +51,6 @@ public class RecordPanel extends Records {
 
     //EFFECT:display the records lists and calls checkBackView to see if user wants to go back
     public String runView() {
-
         viewRecords();
         return checkBackView();
     }
@@ -63,7 +63,7 @@ public class RecordPanel extends Records {
             if (nextPath.equals("back")) {
                 return "back";
             } else if (nextPath.equals("remove")) {
-                if (removeWorkout().equals("back")) {
+                if (removeWorkoutBack().equals("back")) {
                     return "back";
                 }
             } else {
@@ -72,10 +72,11 @@ public class RecordPanel extends Records {
         }
     }
 
+    //EFFECT: iterates through list of key-value pair and checks if key is empty, if not empty then print list
     protected void ignoreRecordsEmpty() {
         for (Map.Entry<String, LinkedHashMap<String, String>> categories : nameOfRecords.entrySet()) {
-            String category = categories.getKey();
-            LinkedHashMap<String, String> categoryRecords = categories.getValue();
+            String category = categories.getKey(); //categories
+            LinkedHashMap<String, String> categoryRecords = categories.getValue(); //the workouts in category
 
             if (!categoryRecords.isEmpty()) {
                 System.out.println("\n" + category + " | ");
@@ -86,9 +87,8 @@ public class RecordPanel extends Records {
         }
     }
 
-    public String removeWorkout() {
-//        String cat = categoryToRemoveText();
-//        if (!cat.equals("back")) {
+    //EFFECT: brings user back from remove workout
+    public String removeWorkoutBack() {
         String work = workoutToRemove(); //took away cat parameter
         if (work.equals("back")) {
             return "back";
@@ -97,6 +97,7 @@ public class RecordPanel extends Records {
         }
     }
 
+    //EFFECT: checks the category and the workout the user wants to remove
     public String workoutToRemove() {
         while (true) {
             System.out.println("\nChoose your category or go back.");
@@ -121,7 +122,7 @@ public class RecordPanel extends Records {
         }
     }
 
-
+    //EFFECT: dynamic checker for different cases, returns true if user input is valid, false otherwise
     public boolean checker(String e, String userInput) {
         if (e.equals("category")) {
             return userInput.equals("push")
@@ -242,11 +243,13 @@ public class RecordPanel extends Records {
         }
     }
 
+    //EFFECT: prints statement saying their workout isn't in common list
     public void notCommonWorkout(String exercise) {
         System.out.println("\n" + exercise + " isn't in our common workouts for this category.");
         System.out.println("\nwould you like to add " + exercise + " as one of your records?");
     }
 
+    //EFFECT: prints statement of options for uncommon workout
     public void notCommonWorkoutOptions() {
         System.out.println("\ty -> yes add to my records");
         System.out.println("\tn -> no do not add to my records");
