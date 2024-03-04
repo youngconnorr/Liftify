@@ -1,20 +1,26 @@
 package ui;
 
 import model.Records;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 //The part of the application that shows the record menu and the choices inside of it
-public class RecordPanel extends Records {
+public class RecordPanel {
+    private Records records;
+    private static final String JSON_STORE = "./data/records.json";
+    private JsonWriter jsonWriter;
     Scanner input;
 
     //EFFECT: creates empty lists of records and calls common workouts from supertype
     public RecordPanel() {
-        super();                             //extends all record lists and common workout lists
+        records = new Records();
         input = new Scanner(System.in);      //instantiates a variable to take in user input
         input.useDelimiter("\n");    //read user input at new line input
+        jsonWriter = new JsonWriter(JSON_STORE);
     }
 
 
@@ -33,15 +39,17 @@ public class RecordPanel extends Records {
             }
         } else if (chosenPath.equals("back")) {
             return "back";
+        } else if (chosenPath.equals("save")) {
+            saveRecords();
         }
         return "back";
     }
 
     //EFFECT: display records lists
     private void viewRecords() {
-        System.out.println("\nPush Records:" + pushRecords);
-        System.out.println("\nPull Records:" + pullRecords);
-        System.out.println("\nLegs Records:" + legsRecords);
+        System.out.println("\nPush Records:" + records.getPushRecords());
+        System.out.println("\nPull Records:" + records.getPullRecords());
+        System.out.println("\nLegs Records:" + records.getLegsRecords());
     }
 
     //EFFECT: display options of view
@@ -76,7 +84,7 @@ public class RecordPanel extends Records {
     //EFFECT: iterates through list of key-value pair and checks if key is empty
     //        if not empty then print list
     private void ignoreRecordsEmpty() {
-        for (Map.Entry<String, LinkedHashMap<String, String>> categories : nameOfRecords.entrySet()) {
+        for (Map.Entry<String, LinkedHashMap<String, String>> categories : records.getNameOfRecords().entrySet()) {
             String category = categories.getKey(); //categories
             LinkedHashMap<String, String> categoryRecords = categories.getValue(); //the workouts in category
 
@@ -113,8 +121,8 @@ public class RecordPanel extends Records {
                 String workout = input.next().toLowerCase();
                 if (workout.equals("back")) {
                     return "back";
-                } else if (whichRecordList(cat, workout)) {
-                    super.removeWorkoutFromRecord(cat, workout);
+                } else if (records.whichRecordList(cat, workout)) {
+                    records.removeWorkoutFromRecord(cat, workout);
                     System.out.println("Workout Removed");
                     return "back";
                 } else {
@@ -135,7 +143,8 @@ public class RecordPanel extends Records {
         } else if (e.equals("path")) {
             return userInput.equals("view")
                     || userInput.equals("create")
-                    || userInput.equals("back");
+                    || userInput.equals("back")
+                    || userInput.equals("save");
         }
         return false;
     }
@@ -148,8 +157,8 @@ public class RecordPanel extends Records {
             String exercise = findExercise(category);
             if (!exercise.equals("q")) {
                 String weight = findWeight();
-                super.addWorkoutToRecord(category, exercise, weight);
-                super.addUncommonWorkout(category, exercise);
+                records.addWorkoutToRecord(category, exercise, weight);
+                records.addUncommonWorkout(category, exercise);
                 System.out.println("Saved to records!");
             } else {
                 return "back";
@@ -165,6 +174,7 @@ public class RecordPanel extends Records {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\tview   -> view your personal records");
         System.out.println("\tcreate -> create a new personal record");
+        System.out.println("\tsave   -> save your records for later viewing");
         System.out.println("\tback   -> go back to main menu");
     }
 
@@ -226,7 +236,7 @@ public class RecordPanel extends Records {
         while (true) {
             whichExercise();
             String exercise = input.next().toLowerCase();
-            boolean inWorkoutList = whichWorkoutList(category, exercise);
+            boolean inWorkoutList = records.whichWorkoutList(category, exercise);
             boolean con = true;
             if (inWorkoutList) {
                 return exercise;
@@ -275,6 +285,20 @@ public class RecordPanel extends Records {
             } catch (NumberFormatException nfe) {
                 System.out.println("Invalid input. Please input a number.");
             }
+        }
+    }
+
+    // EFFECTS: saves the workroom to file
+    private String saveRecords() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(records);
+            jsonWriter.close();
+            System.out.println("Saved your records to " + JSON_STORE);
+            return "done";
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+            return "error";
         }
     }
 }
