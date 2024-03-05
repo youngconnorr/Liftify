@@ -108,7 +108,7 @@ public class Records extends Workouts implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns each record in records as a JSON array
     private JSONArray recordsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -124,12 +124,14 @@ public class Records extends Workouts implements Writable {
         return jsonArray;
     }
 
+    //EFFECTS: returns object of category with object of workout/weight nested inside
     public JSONObject categoriesToJson(String category, String workout, String weight) {
         JSONObject json = new JSONObject();
         json.put(category, workoutsToJson(workout, weight));
         return json;
     }
 
+    //EFFECTS: returns object of workout and weight
     public JSONObject workoutsToJson(String workout, String weight) {
         JSONObject json = new JSONObject();
         json.put("Workout", workout);

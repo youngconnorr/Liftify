@@ -51,4 +51,19 @@ class JsonReaderTest {
             fail("Exception should not have been thrown");
         }
     }
+
+    @Test
+    void testWriterLegs() {
+        try {
+            JsonReader reader = new JsonReader("./data/testWriterLegsRecords.json");
+            Records r = reader.read();
+            assertEquals("Your Records", r.getName());
+            assertEquals(2, r.getLegsRecords().size());
+            assertEquals("230", r.getLegsRecords().get("squat"));
+            assertEquals("300", r.getLegsRecords().get("bulgarian split squats"));
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
 }

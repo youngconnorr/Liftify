@@ -25,7 +25,7 @@ class JsonWriterTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyRecords() {
         try {
             Records r = new Records("Your Records");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyRecords.json");
@@ -45,7 +45,7 @@ class JsonWriterTest {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralRecords() {
         try {
             Records r = new Records("Your Records");
             r.addWorkoutToRecord("push", "bench", "150");
@@ -64,6 +64,29 @@ class JsonWriterTest {
             assertEquals("150", r.getPushRecords().get("bench"));
             assertEquals("200", r.getPullRecords().get("lat pulldowns"));
             assertEquals("230", r.getLegsRecords().get("squat"));
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testWriterLegs() {
+        try {
+            Records r = new Records("Your Records");
+            r.addWorkoutToRecord("legs", "squat", "230");
+            r.addWorkoutToRecord("legs", "bulgarian split squats", "300");
+            JsonWriter writer = new JsonWriter("./data/testWriterLegsRecords.json");
+            writer.open();
+            writer.write(r);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterLegsRecords.json");
+            r = reader.read();
+            assertEquals("Your Records", r.getName());
+            assertEquals(2, r.getLegsRecords().size());
+            assertEquals("230", r.getLegsRecords().get("squat"));
+            assertEquals("300", r.getLegsRecords().get("bulgarian split squats"));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
