@@ -73,13 +73,12 @@ public class JsonReader {
 
             r.addWorkoutToRecord("pull", workout, weight);
 
-        } else if (record.has("legs")) {
+        } else {
             JSONObject innerObject = record.getJSONObject("legs");
             String workout = innerObject.getString("Workout");
             String weight = innerObject.getString("Weight");
 
             r.addWorkoutToRecord("legs", workout, weight);
-
         }
     }
 
