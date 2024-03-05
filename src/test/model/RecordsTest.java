@@ -199,6 +199,7 @@ public class RecordsTest {
         testRecord.addWorkoutToRecord("pull", "lat pulldowns", "180");
         testRecord.addWorkoutToRecord("legs", "squat", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "140");
+        testRecord.addWorkoutToRecord("legs", "squat", "140");
         testRecord.addWorkoutToRecord("legs", "squat", "190");
         testRecord.addWorkoutToRecord("push", "bench", "140");
         testRecord.removeWorkoutFromRecord("pull", "lat pulldowns");
