@@ -100,6 +100,10 @@ public class Records extends Workouts implements Writable {
         return nameOfRecords;
     }
 
+    public ArrayList<Map<String, LinkedHashMap<String, String>>> getAllRecords() {
+        return allRecords;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

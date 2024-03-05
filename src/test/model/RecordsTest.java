@@ -17,15 +17,15 @@ public class RecordsTest {
 
     @Test
     void testConstructor() {
-        assertTrue(testRecord.nameOfRecords.get("push").isEmpty());
-        assertTrue(testRecord.nameOfRecords.get("pull").isEmpty());
-        assertTrue(testRecord.nameOfRecords.get("legs").isEmpty());
+        assertTrue(testRecord.getNameOfRecords().get("push").isEmpty());
+        assertTrue(testRecord.getNameOfRecords().get("pull").isEmpty());
+        assertTrue(testRecord.getNameOfRecords().get("legs").isEmpty());
 
-        assertTrue(testRecord.pushRecords.isEmpty());
-        assertTrue(testRecord.pullRecords.isEmpty());
-        assertTrue(testRecord.legsRecords.isEmpty());
+        assertTrue(testRecord.getPushRecords().isEmpty());
+        assertTrue(testRecord.getPullRecords().isEmpty());
+        assertTrue(testRecord.getLegsRecords().isEmpty());
 
-        assertEquals(testRecord.nameOfRecords, testRecord.allRecords.get(0));
+        assertEquals(testRecord.getNameOfRecords(), testRecord.getAllRecords().get(0));
     }
 
     @Test
