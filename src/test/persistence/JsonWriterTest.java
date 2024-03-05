@@ -28,15 +28,17 @@ class JsonWriterTest {
     void testWriterEmptyWorkroom() {
         try {
             Records r = new Records("Your Records");
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyRecords.json");
             writer.open();
             writer.write(r);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyRecords.json");
             r = reader.read();
             assertEquals("Your Records", r.getName());
             assertEquals(0, r.getPullRecords().size());
+            assertEquals(0, r.getPushRecords().size());
+            assertEquals(0, r.getLegsRecords().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -48,18 +50,20 @@ class JsonWriterTest {
             Records r = new Records("Your Records");
             r.addWorkoutToRecord("push", "bench", "150");
             r.addWorkoutToRecord("pull", "lat pulldowns", "200");
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            r.addWorkoutToRecord("legs", "squat", "230");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralRecords.json");
             writer.open();
             writer.write(r);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralRecords.json");
             r = reader.read();
             assertEquals("Your Records", r.getName());
             assertEquals(1, r.getPushRecords().size());
             assertEquals(1, r.getPullRecords().size());
             assertEquals("150", r.getPushRecords().get("bench"));
             assertEquals("200", r.getPullRecords().get("lat pulldowns"));
+            assertEquals("230", r.getLegsRecords().get("squat"));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

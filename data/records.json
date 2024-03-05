@@ -1,7 +1,13 @@
 {
     "name": "Your Records",
-    "Records": [{"push": {
-        "Workout": "bench",
-        "Weight": "100"
-    }}]
+    "Records": [
+        {"push": {
+            "Workout": "bench",
+            "Weight": "100"
+        }},
+        {"legs": {
+            "Workout": "squat",
+            "Weight": "150"
+        }}
+    ]
 }

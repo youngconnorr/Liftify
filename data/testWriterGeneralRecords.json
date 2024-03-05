@@ -8,6 +8,10 @@
         {"pull": {
             "Workout": "lat pulldowns",
             "Weight": "200"
+        }},
+        {"legs": {
+            "Workout": "squat",
+            "Weight": "230"
         }}
     ]
 }
