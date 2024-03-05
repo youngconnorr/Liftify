@@ -21,4 +21,4 @@ I was motivated to create this project because this is an application I would pe
 - As a user, I want to be able to put my personal records into different categories of push, pull, and leg workouts.
 - As a user, I want to be able to remove workouts from my records list
 - As a user, I want to be able to have the option to save my all of the categories inside of my records folder
-- AS a user, I want to be able to have the option to load all of my records if I choose to do so
+- As a user, I want to be able to have the option to load all of my records if I choose to do so
