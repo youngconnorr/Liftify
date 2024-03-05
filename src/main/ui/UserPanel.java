@@ -47,7 +47,6 @@ public class UserPanel {
     private void userInterface() {
         System.out.println("Main Menu:");
         System.out.println("\t1 -> Go to records");
-        System.out.println("\t2 -> Go to schedule");
     }
 
     //EFFECT: checks to see if user choice is valid, return true if valid, false otherwise
@@ -59,9 +58,6 @@ public class UserPanel {
     public boolean decideChoice(String e) {
         if (e.equals("1")) {
             return true;
-        } else if (e.equals("2")) {
-            System.out.println("going to schedule when made!");
-            return false;
         }
         return false;
     }

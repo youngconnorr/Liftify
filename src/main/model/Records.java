@@ -120,7 +120,6 @@ public class Records extends Workouts implements Writable {
             String category = categories.getKey(); //categories
             LinkedHashMap<String, String> categoryRecords = categories.getValue(); //the workouts in category
 
-
             for (Map.Entry<String, String> record : categoryRecords.entrySet()) {
                 jsonArray.put(categoriesToJson(category, record.getKey(), record.getValue()));
             }
