@@ -1,0 +1,13 @@
+{
+    "name": "Your Records",
+    "Records": [
+        {"push": {
+            "Workout": "bench",
+            "Weight": "150"
+        }},
+        {"pull": {
+            "Workout": "lat pulldowns",
+            "Weight": "200"
+        }}
+    ]
+}

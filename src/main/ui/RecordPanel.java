@@ -1,9 +1,11 @@
 package ui;
 
 import model.Records;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,14 +15,16 @@ public class RecordPanel {
     private Records records;
     private static final String JSON_STORE = "./data/records.json";
     private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     Scanner input;
 
     //EFFECT: creates empty lists of records and calls common workouts from supertype
     public RecordPanel() {
-        records = new Records();
+        records = new Records("Your records");
         input = new Scanner(System.in);      //instantiates a variable to take in user input
         input.useDelimiter("\n");    //read user input at new line input
         jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
 
@@ -41,6 +45,8 @@ public class RecordPanel {
             return "back";
         } else if (chosenPath.equals("save")) {
             saveRecords();
+        } else if (chosenPath.equals("load")) {
+            loadRecords();
         }
         return "back";
     }
@@ -144,7 +150,8 @@ public class RecordPanel {
             return userInput.equals("view")
                     || userInput.equals("create")
                     || userInput.equals("back")
-                    || userInput.equals("save");
+                    || userInput.equals("save")
+                    || userInput.equals("load");
         }
         return false;
     }
@@ -175,6 +182,7 @@ public class RecordPanel {
         System.out.println("\tview   -> view your personal records");
         System.out.println("\tcreate -> create a new personal record");
         System.out.println("\tsave   -> save your records for later viewing");
+        System.out.println("\tload   -> load your old records and add to them");
         System.out.println("\tback   -> go back to main menu");
     }
 
@@ -288,18 +296,29 @@ public class RecordPanel {
         }
     }
 
+    //MODIFIES: records.json
     // EFFECTS: saves the workroom to file
-    private String saveRecords() {
+    private void saveRecords() {
         try {
             jsonWriter.open();
             jsonWriter.write(records);
             jsonWriter.close();
             System.out.println("Saved your records to " + JSON_STORE);
-            return "done";
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException fnfe) {
             System.out.println("Unable to write to file: " + JSON_STORE);
-            return "error";
         }
     }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadRecords() {
+        try {
+            records = jsonReader.read();
+            System.out.println("Loaded " + records.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 }
 

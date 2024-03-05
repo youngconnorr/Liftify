@@ -12,7 +12,7 @@ public class RecordsTest {
 
     @BeforeEach
     void runBefore() {
-        testRecord = new Records();
+        testRecord = new Records("Your records");
     }
 
     @Test

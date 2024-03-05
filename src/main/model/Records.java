@@ -11,6 +11,7 @@ import java.util.Map;
 
 //Contains methods that modify record lists or check information about record list
 public class Records extends Workouts implements Writable {
+    private String name;
     protected LinkedHashMap<String, String> pushRecords;            //List of all user push records
     protected LinkedHashMap<String, String> pullRecords;            //List of all user pull records
     protected LinkedHashMap<String, String> legsRecords;            //List of all user legs records
@@ -18,7 +19,8 @@ public class Records extends Workouts implements Writable {
     protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords; //List containing all records with name
     protected ArrayList<String> empty;  //List of all error records
 
-    public Records() {
+    public Records(String name) {
+        this.name = name;
         pushRecords = new LinkedHashMap<>();
         pullRecords = new LinkedHashMap<>();
         legsRecords = new LinkedHashMap<>();
@@ -34,6 +36,10 @@ public class Records extends Workouts implements Writable {
         allRecords = new ArrayList<>();
         allRecords.add(nameOfRecords);
 
+    }
+
+    public String getName() {
+        return name;
     }
 
     //MODIFIES: this
@@ -115,7 +121,6 @@ public class Records extends Workouts implements Writable {
                 jsonArray.put(categoriesToJson(category, record.getKey(), record.getValue()));
             }
         }
-
         return jsonArray;
     }
 
