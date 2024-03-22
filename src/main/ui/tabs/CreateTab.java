@@ -27,29 +27,43 @@ public class CreateTab extends Tab implements ActionListener {
 
     public void placeContainer() {
         category = new JLabel("Category (push/pull/legs): ");
-        category.setBounds(10, 20, 80, 25);
         categoryText = new JTextField(20);
-        categoryText.setBounds(100, 20, 165, 25);
 
         exercise = new JLabel("Exercise: ");
-        exercise.setBounds(10, 20, 80, 25);
         exerciseText = new JTextField(20);
-        exerciseText.setBounds(100, 20, 165, 25);
 
         weight = new JLabel("Weight: ");
-        exercise.setBounds(10, 20, 80, 25);
         weightText = new JTextField(20);
-        weightText.setBounds(100, 20, 165, 25);
+
         submit = new JButton("Create new record");
         submit.addActionListener(this);
 
-        this.add(category);
-        this.add(categoryText);
-        this.add(exercise);
-        this.add(exerciseText);
-        this.add(weight);
-        this.add(weightText);
-        this.add(submit);
+        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        categoryPanel.add(category);
+        categoryPanel.add(categoryText);
+
+        JPanel exercisePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        exercisePanel.add(exercise);
+        exercisePanel.add(exerciseText);
+
+        JPanel weightPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        weightPanel.add(weight);
+        weightPanel.add(weightText);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(submit);
+
+        add(Box.createVerticalStrut(10)); // Add spacing between components
+
+        add(categoryPanel);
+        add(Box.createVerticalStrut(10)); // Add spacing between components
+        add(exercisePanel);
+        add(Box.createVerticalStrut(10)); // Add spacing between components
+        add(weightPanel);
+        add(Box.createVerticalStrut(10)); // Add spacing between components
+        add(buttonPanel);
+
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding around the container
     }
 
     public void addWorkout(String c, String w, String l) {

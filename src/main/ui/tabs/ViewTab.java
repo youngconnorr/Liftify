@@ -2,15 +2,20 @@ package ui.tabs;
 
 import model.Records;
 import persistence.JsonReader;
+import persistence.JsonWriter;
+import java.util.Map.Entry;
 import ui.LiftifyUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ViewTab extends Tab implements ActionListener {
     private static final String JSON_STORE = "./data/records.json";
@@ -25,34 +30,35 @@ public class ViewTab extends Tab implements ActionListener {
     private JButton saveBtn;
     private JButton loadBtn;
     private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     public ViewTab(LiftifyUI controller) {
         super(controller);
         jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        setLayout(new BorderLayout());
 
-        setLayout(new GridLayout(10, 10));
+        label = new JLabel("Workout Records", SwingConstants.CENTER);
+        add(label, BorderLayout.NORTH);
 
-
-
-        label = new JLabel("Workout Records");
-        label.setBounds(100, 50, 200, 50);
-
-        removeBtn = new JButton("Remove Record");
-        removeBtn.setBounds(50, 50, 100, 50);
-
-        saveBtn = new JButton("Save Records");
-        saveBtn.setBounds(50, 50, 100, 50);
-
-        loadBtn = new JButton("Load Old Records");
-        loadBtn.setBounds(50, 50, 100, 50);
-        loadBtn.addActionListener(this);
-
-        this.add(label);
+        JPanel listsPanel = new JPanel(new GridLayout(3, 1)); // Create a panel for lists using GridLayout
         createListsDisplay();
         addToLists();
-        this.add(removeBtn);
-        this.add(saveBtn);
-        this.add(loadBtn);
+        listsPanel.add(new JScrollPane(pushUIList));
+        listsPanel.add(new JScrollPane(pullUIList));
+        listsPanel.add(new JScrollPane(legsUIList));
+        add(listsPanel, BorderLayout.CENTER); // Add the lists panel to the center
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2)); // Create a panel for buttons using GridLayout
+        saveBtn = new JButton("Save Records");
+        saveBtn.addActionListener(this);
+        buttonPanel.add(saveBtn);
+
+        loadBtn = new JButton("Load Old Records");
+        loadBtn.addActionListener(this);
+        buttonPanel.add(loadBtn);
+
+        add(buttonPanel, BorderLayout.SOUTH); // Add the buttons panel to the bottom
     }
 
     public void createListsDisplay() {
@@ -80,27 +86,42 @@ public class ViewTab extends Tab implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(removeBtn)) {
-            //TODO add remove
-        } else if (e.getSource().equals(saveBtn)) {
-           //TODO add save
+        if (e.getSource().equals(saveBtn)) {
+            saveCurrentWorkouts();
         } else if (e.getSource().equals(loadBtn)) {
-            try {
-                clearWorkouts();
-                Records loadedRecord = jsonReader.read();
-                LinkedHashMap<String, String> loadedPush = loadedRecord.getPushRecords();
-                LinkedHashMap<String, String> loadedPull = loadedRecord.getPushRecords();
-                LinkedHashMap<String, String> loadedLegs = loadedRecord.getPushRecords();
-                addOldToPush(loadedPush);
-                addOldToPull(loadedPull);
-                addOldToLegs(loadedLegs);
-
-                System.out.println("Loaded " + loadedRecord.getName() + " from " + JSON_STORE);
-            } catch (IOException e1) {
-                System.out.println("Unable to read from file: " + JSON_STORE);
-            }
+            loadOldWorkouts();
         }
     }
+
+
+    private void saveCurrentWorkouts() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(getController().getRecord());
+            jsonWriter.close();
+            System.out.println("Saved your records to " + JSON_STORE);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void loadOldWorkouts() {
+        try {
+            clearWorkouts();
+            Records loadedRecord = jsonReader.read();
+            LinkedHashMap<String, String> loadedPush = loadedRecord.getPushRecords();
+            LinkedHashMap<String, String> loadedPull = loadedRecord.getPushRecords();
+            LinkedHashMap<String, String> loadedLegs = loadedRecord.getPushRecords();
+            addOldToPush(loadedPush);
+            addOldToPull(loadedPull);
+            addOldToLegs(loadedLegs);
+
+            System.out.println("Loaded " + loadedRecord.getName() + " from " + JSON_STORE);
+        } catch (IOException e1) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 
     private void clearWorkouts() {
         getController().getRecord().getPushRecords().clear();
