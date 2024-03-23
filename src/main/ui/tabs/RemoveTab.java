@@ -9,22 +9,27 @@ import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+//contains methods to remove workouts from records and create an interface
 public class RemoveTab extends Tab implements ActionListener {
-    private static final String INTRO_TEXT = "Remove a workout record";
     private JButton submit;
     private JButton search;
+    private JLabel label;
     private JLabel category;
     private JLabel exercise;
     private JTextField categoryText;
     private JTextField exerciseText;
     private JPanel listsPanel;
 
+    //EFFECTS: place labels and panels for interface
     public RemoveTab(LiftifyUI controller) {
         super(controller);
         setSize(100, 100);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        listsPanel = new JPanel(new GridLayout(1, 2)); // Create a panel for lists using GridLayout
+        label = new JLabel("Workout Records", SwingConstants.CENTER);
+        add(label, BorderLayout.PAGE_START);
+
+        listsPanel = new JPanel(new GridLayout(0, 1)); // Create a panel for lists using GridLayout
 
         category = new JLabel("Category (push/pull/legs): ");
         categoryText = new JTextField(20);
@@ -42,6 +47,8 @@ public class RemoveTab extends Tab implements ActionListener {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: Creates and adds text boxes for categories and exercises, creates submit and search button
     public void placeContainer() {
 
         JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -61,57 +68,46 @@ public class RemoveTab extends Tab implements ActionListener {
 
         this.add(Box.createVerticalStrut(10)); // Add spacing between components
         this.add(categoryPanel);
-        this.add(Box.createVerticalStrut(10)); // Add spacing between components
+        this.add(Box.createVerticalStrut(10));
         this.add(listsPanel);
-        this.add(Box.createVerticalStrut(10)); // Add spacing between components
+        this.add(Box.createVerticalStrut(10));
         this.add(exercisePanel);
-        this.add(Box.createVerticalStrut(10)); // Add spacing between components
+        this.add(Box.createVerticalStrut(10));
         this.add(buttonPanel);
 
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding around the container
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 
+    //MODIFIES: LiftifyUI records
+    //EFFECTS: removes specified workout from records
     public void removeWorkout(String cat, String exercise) {
-
         getController().getRecord().removeWorkoutFromRecord(cat, exercise);
     }
 
+    //EFFECTS: check to see if text boxes are empty, returns true if any boxes are empty, false otherwise
     public boolean boxesEmpty() {
         return categoryText.getText().isEmpty() || exerciseText.getText().isEmpty();
     }
 
-    public boolean notNullCategory() {
-        return categoryText.getText().toLowerCase().equals("push")
-                ||
-                categoryText.getText().toLowerCase().equals("pull")
-                ||
-                categoryText.getText().toLowerCase().equals("legs");
-    }
-
+    //MODIFIES: this
+    //EFFECTS: checks user inputs, and calls to remove specified workout or display list of specified category
     @Override
     public void actionPerformed(ActionEvent e) {
-        JLabel errorInputText;
-        JLabel removedText;
         String category = categoryText.getText().toLowerCase();
         String exercise = exerciseText.getText().toLowerCase();
         if (e.getSource().equals(submit)) {
             if (boxesEmpty()) {
-
-                errorInputText = new JLabel("Please fill out all boxes");
-                this.add(errorInputText);
-            } else if (!(notNullCategory())) {
-                errorInputText = new JLabel("Please put a valid category (push/pull/legs)");
-                this.add(errorInputText);
+                errorMessage("Please fill out all boxes");
+            } else if (!(notNullCategory(category))) {
+                errorMessage("Please put one of these categories (push/pull/legs");
             } else if (!(checkExercise(exercise, category))) {
-                errorInputText = new JLabel("Please put a valid workout");
-                this.add(errorInputText);
-            }  else if (!boxesEmpty() && notNullCategory() && checkExercise(exercise, category)) {
+                errorMessage("Please put a valid workout");
+            } else if (!boxesEmpty() && notNullCategory(category) && checkExercise(exercise, category)) {
                 removeWorkout(category, exercise);
+                categoryText.setText("");
+                exerciseText.setText("");
                 listsPanel.removeAll();
-                errorInputText = new JLabel("");
-                removedText = new JLabel("Removed: " + exercise + " from your " + category + "records.");
-                add(removedText);
-                this.add(errorInputText);
+                successMessage("Removed: " + exercise + " from your " + category + "records.");
             }
         }
 
@@ -120,32 +116,29 @@ public class RemoveTab extends Tab implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: create list of workouts for specified category
     public void addToSearchedList(String category) {
         listsPanel.removeAll();
         if (category.equals("push")) {
             for (Map.Entry<String, String> entry : getController().getRecord().getPushRecords().entrySet()) {
                 JLabel keyLabel = new JLabel(entry.getKey());
-                JLabel valueLabel = new JLabel(entry.getValue());
                 listsPanel.add(keyLabel);
-                listsPanel.add(valueLabel);
             }
         } else if (category.equals("pull")) {
             for (Map.Entry<String, String> entry : getController().getRecord().getPullRecords().entrySet()) {
                 JLabel keyLabel = new JLabel(entry.getKey());
-                JLabel valueLabel = new JLabel(entry.getValue());
                 listsPanel.add(keyLabel);
-                listsPanel.add(valueLabel);
             }
         } else if (category.equals("legs")) {
             for (Map.Entry<String, String> entry : getController().getRecord().getLegsRecords().entrySet()) {
                 JLabel keyLabel = new JLabel(entry.getKey());
-                JLabel valueLabel = new JLabel(entry.getValue());
                 listsPanel.add(keyLabel);
-                listsPanel.add(valueLabel);
             }
         }
     }
 
+    //EFFECTS: check if inputted workout is in list, return true if inside list, false otherwise
     public boolean checkExercise(String e, String category) {
         if (category.equals("push")) {
             for (Map.Entry<String, String> entry : getController().getRecord().getPushRecords().entrySet()) {

@@ -5,12 +5,12 @@ import ui.LiftifyUI;
 import javax.swing.*;
 import java.awt.*;
 
+//Home tab and is the first tab users see when opening application
 public class HomeTab extends Tab {
 
-    private static final String INIT_GREETING = "Welcome, choose to create or view your records";
-    private JLabel greeting;
     private JLabel iconHolder;
 
+    //EFFECTS: constructs a home tab with a picture that has a greeting graphic
     public HomeTab(LiftifyUI controller) {
         super(controller);
 
@@ -19,15 +19,15 @@ public class HomeTab extends Tab {
         placeGreeting();
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds picture to interface and positions it
     private void placeGreeting() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("workout-background.jpg"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("workout.jpg"));
         iconHolder = new JLabel(icon);
-        greeting = new JLabel(INIT_GREETING, SwingConstants.CENTER);
 
-        this.setLayout(new BorderLayout()); // Use BorderLayout to properly position components
-        this.add(greeting, BorderLayout.CENTER); // Add the greeting label at the center
-        this.add(iconHolder, BorderLayout.NORTH); // Add the image label at the top
+        this.setLayout(new BorderLayout());
+        this.add(iconHolder, BorderLayout.NORTH);
     }
 
 

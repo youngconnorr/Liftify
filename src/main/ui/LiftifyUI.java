@@ -7,10 +7,10 @@ import ui.tabs.RemoveTab;
 import ui.tabs.ViewTab;
 
 import javax.swing.*;
-import java.awt.*;
 
+//contains main method and creates tabs and new records object
 public class LiftifyUI extends JFrame {
-    public static final int HOME_TAB_INDEX  = 0;
+    public static final int HOME_TAB_INDEX = 0;
     public static final int CREATE_TAB_INDEX = 1;
     public static final int REMOVE_TAB_INDEX = 2;
     public static final int VIEW_TAB_INDEX = 3;
@@ -20,10 +20,12 @@ public class LiftifyUI extends JFrame {
     private JTabbedPane sidebar;
     private Records records;
 
+    //EFFECTS: runs application
     public static void main(String[] args) {
         new LiftifyUI();
     }
 
+    //EFFECTS: create interface and tabs
     private LiftifyUI() {
         super("Liftify Console");
         setSize(WIDTH, HEIGHT);
@@ -38,6 +40,8 @@ public class LiftifyUI extends JFrame {
         setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: instantiates all tabs and adds to
     private void loadTabs() {
         JPanel homeTab = new HomeTab(this);
         JPanel createTab = new CreateTab(this);
@@ -57,10 +61,7 @@ public class LiftifyUI extends JFrame {
         sidebar.setTitleAt(VIEW_TAB_INDEX, "View");
     }
 
-    public JTabbedPane getTabbedPane() {
-        return sidebar;
-    }
-
+    //EFFECTS: returns records
     public Records getRecord() {
         return records;
     }
