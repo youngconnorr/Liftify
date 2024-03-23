@@ -107,7 +107,7 @@ public class RemoveTab extends Tab implements ActionListener {
                 categoryText.setText("");
                 exerciseText.setText("");
                 listsPanel.removeAll();
-                successMessage("Removed: " + exercise + " from your " + category + "records.");
+                successMessage("Removed: " + exercise + " from your " + category + " records.");
             }
         }
 
