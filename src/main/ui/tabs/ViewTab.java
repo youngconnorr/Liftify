@@ -24,13 +24,13 @@ public class ViewTab extends Tab implements ActionListener {
     private JList<LinkedHashMap<String, String>> pullUIList;
     private JList<LinkedHashMap<String, String>> legsUIList;
     private JLabel label;
-    private JButton removeBtn;
     private JButton saveBtn;
     private JButton loadBtn;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private JPanel listsPanel;
 
-    //MODIFIES: this
+    //MODIFIES: this and buttonPanel
     //EFFECTS: creates category lists, save button, and load button
     public ViewTab(LiftifyUI controller) {
         super(controller);
@@ -41,16 +41,10 @@ public class ViewTab extends Tab implements ActionListener {
         label = new JLabel("Workout Records", SwingConstants.CENTER);
         add(label, BorderLayout.NORTH);
 
-        JPanel listsPanel = new JPanel(new GridLayout(6, 1));
+        listsPanel = new JPanel(new GridLayout(6, 1));
         createListsDisplay();
         addToLists();
-        listsPanel.add(new JLabel("push records"));
-        listsPanel.add(new JScrollPane(pushUIList));
-        listsPanel.add(new JLabel("pull records"));
-        listsPanel.add(new JScrollPane(pullUIList));
-        listsPanel.add(new JLabel("legs records"));
-        listsPanel.add(new JScrollPane(legsUIList));
-        add(listsPanel, BorderLayout.CENTER);
+        createListsPanel();
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
         saveBtn = new JButton("Save Records");
@@ -62,6 +56,18 @@ public class ViewTab extends Tab implements ActionListener {
         buttonPanel.add(loadBtn);
 
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    //MODIFIES: listsPanel and this
+    //EFFECTS: add content to listsPanel and add to interface
+    public void createListsPanel() {
+        listsPanel.add(new JLabel("push records"));
+        listsPanel.add(new JScrollPane(pushUIList));
+        listsPanel.add(new JLabel("pull records"));
+        listsPanel.add(new JScrollPane(pullUIList));
+        listsPanel.add(new JLabel("legs records"));
+        listsPanel.add(new JScrollPane(legsUIList));
+        add(listsPanel, BorderLayout.CENTER);
     }
 
     //EFFECTS: Creates the displayed lists of each category
