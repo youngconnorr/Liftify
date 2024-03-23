@@ -23,7 +23,7 @@ I was motivated to create this project because this is an application I would pe
 - As a user, I want to be able to have the option to save my all of the categories inside of my records folder
 - As a user, I want to be able to have the option to load all of my records if I choose to do so
 
-# Instructions for Grader ✅
+## Instructions for Grader ✅
 
 - You can generate the first required action related to the user story "adding multiple Xs to a Y" by going to the create tab and creating a personal record
 - You can generate the second required action related to the user story "adding multiple Xs to a Y" by going to remove, inputting a category and pressing the "search     category for workouts" button to display a subset of workouts related to the category
