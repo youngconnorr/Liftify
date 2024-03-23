@@ -25,8 +25,8 @@ I was motivated to create this project because this is an application I would pe
 
 ## Instructions for Grader ✅
 
-- You can generate the first required action related to the user story "adding multiple Xs to a Y" by going to the create tab and creating a personal record
-- You can generate the second required action related to the user story "adding multiple Xs to a Y" by going to remove, inputting a category and pressing the "search     category for workouts" button to display a subset of workouts related to the category
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by going to the "Remove" tab and removing a personal record         depending on the inputted category and exercise
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by going to remove, inputting a category and pressing the "search   category for workouts" button to display a subset of workouts related to the category
 - You can locate my visual component by going to "Home" tab and seeing the introduction screen
 - You can save the state of my application by going to view and saving the contents of the records
 - You can reload the state of my application by going to view and loading the contents of old records
