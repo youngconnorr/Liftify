@@ -107,6 +107,8 @@ public class RemoveTab extends Tab implements ActionListener {
                 categoryText.setText("");
                 exerciseText.setText("");
                 listsPanel.removeAll();
+                this.revalidate();
+                this.repaint();
                 successMessage("Removed: " + exercise + " from your " + category + " records.");
             }
         }
@@ -136,6 +138,8 @@ public class RemoveTab extends Tab implements ActionListener {
                 listsPanel.add(keyLabel);
             }
         }
+        this.revalidate();
+        this.repaint();
     }
 
     //EFFECTS: check if inputted workout is in list, return true if inside list, false otherwise

@@ -58,6 +58,15 @@ public class ViewTab extends Tab implements ActionListener {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    //MODIFIES: this
+    //EFFECTS: refreshes page with new information
+    public void refreshPanel() {
+        listsPanel = new JPanel(new GridLayout(6, 1));
+        createListsDisplay();
+        addToLists();
+        createListsPanel();
+    }
+
     //MODIFIES: listsPanel and this
     //EFFECTS: add content to listsPanel and add to interface
     public void createListsPanel() {
@@ -131,6 +140,8 @@ public class ViewTab extends Tab implements ActionListener {
             addOldToPush(loadedPush);
             addOldToPull(loadedPull);
             addOldToLegs(loadedLegs);
+
+            refreshPanel();
 
             successMessage("Loaded " + loadedRecord.getName() + " from " + JSON_STORE);
         } catch (IOException e1) {
