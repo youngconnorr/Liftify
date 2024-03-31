@@ -30,3 +30,8 @@ I was motivated to create this project because this is an application I would pe
 - You can locate my visual component by going to "Home" tab and seeing the introduction screen
 - You can save the state of my application by going to view and saving the contents of the records
 - You can reload the state of my application by going to view and loading the contents of old records
+
+## Phase 4: Task 2
+An image representation of the events that may be printed out in the console when program is closed after being ran
+![image](https://media.github.students.cs.ubc.ca/user/25805/files/a499d511-5201-4c9a-baa8-8e42eb9ae4c5)
+
