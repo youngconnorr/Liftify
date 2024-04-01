@@ -33,8 +33,8 @@ I was motivated to create this project because this is an application I would pe
 
 ## Phase 4: Task 2
 An image representation of the events that may be printed out in the console when program is closed after being ran
-- Create record -> saves create event 
-- Remove record -> saves remove event
+- Create Tab -> Record -> createRecord -> EventLog
+- Remove Tab -> Record -> removeRecord -> EventLog
 
 ![image](https://media.github.students.cs.ubc.ca/user/25805/files/041802c1-0493-4206-aaac-4803bc7056dc)
 
