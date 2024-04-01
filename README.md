@@ -38,3 +38,8 @@ An image representation of the events that may be printed out in the console whe
 
 ![image](https://media.github.students.cs.ubc.ca/user/25805/files/041802c1-0493-4206-aaac-4803bc7056dc)
 
+## Phase 4: Task 3
+Reflection on the design presented in my UML class diagram.  
+- If I had more time to work on the project, what refactoring may I have done to improve the design?
+
+One of the key aspects of my project that I began to notice when creating my UML diagram is making Records an interface. If I were to refactor records into an interface, I would be able to create multiple inplementations to manipulate the way I handle records based on the application I want to create. Allowing me to have more flexibility and maintanability as the application grows. Furthermore, as the software expands, I would combine RecordPanel and UserPanel. They are extremely similiar classes that delivery and carry out the same logic. Combining these classes would reduce class coupling and increase cohesion, promoting better readability for future developers.
