@@ -2,16 +2,16 @@
     "name": "Your Records",
     "Records": [
         {"push": {
-            "Workout": "rqwfsa",
-            "Weight": "12321"
-        }},
-        {"pull": {
-            "Workout": "palsd",
+            "Workout": "bench",
             "Weight": "123"
         }},
         {"pull": {
-            "Workout": "r1r1",
-            "Weight": "2131"
+            "Workout": "sd",
+            "Weight": "12"
+        }},
+        {"legs": {
+            "Workout": "ben",
+            "Weight": "10"
         }}
     ]
 }

@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 //Contains methods to make a CreateTab for users to add to their records
 public class CreateTab extends Tab implements ActionListener {
-    private static final String INTRO_TEXT = "Create a new workout record";
     private JButton submit;
     private JLabel category;
     private JLabel exercise;

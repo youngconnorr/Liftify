@@ -1,12 +1,12 @@
 package ui.tabs;
 
+
 import ui.LiftifyUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 //contains methods to remove workouts from records and create an interface

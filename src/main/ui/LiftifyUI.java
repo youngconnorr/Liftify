@@ -5,6 +5,10 @@ import ui.tabs.CreateTab;
 import ui.tabs.HomeTab;
 import ui.tabs.RemoveTab;
 import ui.tabs.ViewTab;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import model.Event;
+import model.EventLog;
 
 import javax.swing.*;
 
@@ -19,6 +23,7 @@ public class LiftifyUI extends JFrame {
     public static final int HEIGHT = 400;
     private JTabbedPane sidebar;
     private Records records;
+    private WindowAdapter windowAdapter;
 
     //EFFECTS: runs application
     public static void main(String[] args) {
@@ -30,12 +35,25 @@ public class LiftifyUI extends JFrame {
         super("Liftify Console");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         records = new Records("name");
         sidebar = new JTabbedPane();
         sidebar.setTabPlacement(JTabbedPane.LEFT);
         loadTabs();
         add(sidebar);
+
+        windowAdapter = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                for (Event curLog : EventLog.getInstance()) {
+                    System.out.println(curLog.toString());
+                    System.out.println("\n");
+                }
+                System.exit(0);
+            }
+        };
+
+        addWindowListener(windowAdapter);
 
         setVisible(true);
     }

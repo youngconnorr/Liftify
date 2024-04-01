@@ -4,7 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,6 +17,7 @@ public class Records extends Workouts implements Writable {
     protected Map<String, LinkedHashMap<String, String>> nameOfRecords;   //category name of each list of records
     protected ArrayList<Map<String, LinkedHashMap<String, String>>> allRecords; //List containing all records with name
     protected ArrayList<String> empty;  //List of all error records
+
 
     public Records(String name) {
         this.name = name;
@@ -47,10 +47,16 @@ public class Records extends Workouts implements Writable {
     public void addWorkoutToRecord(String category, String exercise, String weight) {
         if (category.equals("push")) {
             pushRecords.put(exercise, weight);
+            EventLog.getInstance().logEvent(
+                    new Event("A " + exercise + " record created for " + category + " category"));
         } else if (category.equals("pull")) {
             pullRecords.put(exercise, weight);
+            EventLog.getInstance().logEvent(
+                    new Event("A " + exercise + " record created for " + category + " category"));
         } else if (category.equals("legs")) {
             legsRecords.put(exercise, weight);
+            EventLog.getInstance().logEvent(
+                    new Event("A " + exercise + " record created for " + category + " category"));
         } else {
             empty.add("workout");
         }
@@ -62,10 +68,16 @@ public class Records extends Workouts implements Writable {
     public void removeWorkoutFromRecord(String category, String exercise) {
         if (category.equals("push")) {
             pushRecords.remove(exercise);
+            EventLog.getInstance().logEvent(
+                    new Event("Removed " + exercise + " record from " + category + " category"));
         } else if (category.equals("pull")) {
             pullRecords.remove(exercise);
+            EventLog.getInstance().logEvent(
+                    new Event("Removed " + exercise + " record from " + category + " category"));
         } else if (category.equals("legs")) {
             legsRecords.remove(exercise);
+            EventLog.getInstance().logEvent(
+                    new Event("Removed " + exercise + " record from " + category + " category"));
         } else {
             empty.remove("workout");
         }
