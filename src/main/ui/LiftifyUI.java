@@ -5,8 +5,10 @@ import ui.tabs.CreateTab;
 import ui.tabs.HomeTab;
 import ui.tabs.RemoveTab;
 import ui.tabs.ViewTab;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import model.Event;
 import model.EventLog;
 
