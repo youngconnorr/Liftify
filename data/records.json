@@ -3,15 +3,11 @@
     "Records": [
         {"push": {
             "Workout": "bench",
-            "Weight": "123"
-        }},
-        {"pull": {
-            "Workout": "sd",
-            "Weight": "12"
+            "Weight": "150"
         }},
         {"legs": {
-            "Workout": "ben",
-            "Weight": "10"
+            "Workout": "squat",
+            "Weight": "150"
         }}
     ]
 }
