@@ -32,7 +32,7 @@ public class LiftifyUI extends JFrame {
         new LiftifyUI();
     }
 
-    //EFFECTS: create interface and tabss
+    //EFFECTS: create interface and tabs
     private LiftifyUI() {
         super("Liftify Console");
         setSize(WIDTH, HEIGHT);
