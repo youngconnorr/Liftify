@@ -10,9 +10,10 @@ I was motivated to create this project because this is an application I would pe
 
 **Main Uses:** 💡
 
-- Track personal records and put them in categories of push, pull, or legs
-- Create workout routines
-- Show schedule of workouts
+- Track personal records
+- Organize them into categories of push, pull, legs
+- Remove, Add and Edit different workouts of the users choosing
+- Persistent data for storing and retrieving saved user data
 
 
 ## User Stories: 📝
