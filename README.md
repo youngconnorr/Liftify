@@ -8,22 +8,13 @@ https://github.com/user-attachments/assets/a992944b-0fcc-4d1b-b792-ced295d22cd4
 
 I was motivated to create this project because this is an application I would personally use. I have gone to the gym for 2 years now, and I have a bad habit of not tracking my exact numbers for personal records so this application would allow to me focus on my goals and guide my workouts.🔩
 
-**Main Uses:** 💡
+## Main Uses 💡
 
 - Track personal records
 - Organize them into categories of push, pull, legs
 - Remove, Add and Edit different workouts of the users choosing
 - Persistent data for storing and retrieving saved user data
 
-
-## User Stories: 📝
-
-- As a user, I want to be able to add a personal record to my records
-- As a user, I want to be able to view a list of my records
-- As a user, I want to be able to put my personal records into different categories of push, pull, and leg workouts
-- As a user, I want to be able to remove workouts from my records list
-- As a user, I want to be able to have the option to save my all of the categories inside of my records folder
-- As a user, I want to be able to have the option to load all of my records if I choose to do so
 
 
 
